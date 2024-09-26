@@ -4,8 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const Add = () => {
-  const url = "http://localhost:4000";
+// eslint-disable-next-line react/prop-types
+export const Add = ({ url }) => {
   const [image, setImage] = useState(null);
   const [data, setData] = useState({
     name: "",
@@ -36,7 +36,7 @@ export const Add = () => {
         price: "",
         category: "Salad",
       });
-      setImage(null);
+      setImage();
       toast.success(response.data.message);
     } else {
       toast.error(response.data.message);
@@ -86,7 +86,11 @@ export const Add = () => {
         <div className="add-category-price">
           <div className="add-category flex-col">
             <p>Product category</p>
-            <select onChange={onChangeHandler} name="category">
+            <select
+              onChange={onChangeHandler}
+              value={data.category}
+              name="category"
+            >
               <option value="Salad">Salad</option>
               <option value="Rolls">Rolls</option>
               <option value="Desserts">Desserts</option> {/* Corrected here */}
